@@ -1,4 +1,5 @@
 const getConfiguration = require('./configuration');
+
 const {
     createUser,
     attemptLogin,

@@ -1,11 +1,18 @@
 const settings = require('./settings.json');
 
-const getConfiguration = () => {
-    const userPoolId = settings.userPoolId;
-    const clientId = settings.clientId;
-    const tempPwd = settings.tempPwd;
-    const newPwd = settings.newPwd;
-    const user = settings.user;
+const hasOverride = (overrides, property, defaultVal) => {
+    if (overrides && overrides[property])
+        return overrides[property];
+
+    return defaultVal;
+}
+
+const getConfiguration = (overrides) => {
+    const userPoolId = hasOverride(overrides, "userPoolId", settings.userPoolId);
+    const clientId = hasOverride(overrides, "clientId", settings.clientId);
+    const tempPwd = hasOverride(overrides, "tempPwd", settings.tempPwd);
+    const newPwd = hasOverride(overrides, "newPwd", settings.newPwd);
+    const user = hasOverride(overrides, "user", settings.user);
 
     return {
         userPoolId: userPoolId,
