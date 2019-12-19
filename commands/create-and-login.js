@@ -8,7 +8,7 @@ const createAndLoginUser = async (config) => {
     const result = await createUser(config);
 
     console.log('Attempting login...')
-    const authentication = await attemptLogin(config);
+    const authentication = await attemptLogin(config.region, config.clientId, config.user, config.tempPwd);
 
     if (authentication.ChallengeName === 'NEW_PASSWORD_REQUIRED') {
         const session = authentication.Session;

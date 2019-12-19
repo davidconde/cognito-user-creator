@@ -25,10 +25,7 @@ const main = async () => {
 
     const cmd = commandMap.filter(c => c.key === command);
     
-    return cmd[0].command.call(null, config);
-
-
-    
+    return cmd[0].command.call(null, config);    
 };
 
 main();

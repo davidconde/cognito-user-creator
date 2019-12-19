@@ -20,18 +20,18 @@ const createUser = async (config) => {
     return res;
 }
 
-const attemptLogin = async (config) => {
+const attemptLogin = async (region, clientId, user, password) => {
 
     const params = {
         AuthFlow: 'USER_PASSWORD_AUTH',
-        ClientId: config.clientId,
+        ClientId: clientId,
         AuthParameters: {
-            "USERNAME": config.user,
-            "PASSWORD": config.tempPwd
+            "USERNAME": user,
+            "PASSWORD": password
         }
     };
 
-    const isp = createIdentityServiceProvider(config);
+    const isp = createIdentityServiceProvider( {region: region} );
     const res = await isp.initiateAuth(params).promise();
     return res;
 }
