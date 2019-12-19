@@ -4,9 +4,11 @@ const {
 
 const login = async (config) => {
 
-    console.log(config)
+    console.log('Attemptig login')
 
-    const authentication = await attemptLogin(config);
+    const authentication = await attemptLogin(config.region, config.clientId, config.user, config.password);
+
+    console.log(authentication)
 
     return authentication;
 }
