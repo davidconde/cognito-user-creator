@@ -1,28 +1,34 @@
 const getConfiguration = require('./configuration');
+const optionDefinitions = require('./commands-config');
+const { setVerboseLevel, log } = require('./logger');
 
-const {
-    createUser,
-    attemptLogin,
-    resetPasswordToNew
-} = require('./cognito');
+const createAndLoginUser = require('./commands/create-and-login');
+const login = require('./commands/login')
 
-const main = async () => {
-    const config = getConfiguration();
-    console.log('Creating user...')
+const commandLineArgs = require('command-line-args')
 
-    const result = await createUser(config);
+const commandMap = [
+    { key: '', command: login },
+    { key: 'create', command: createAndLoginUser },
+    { key: 'login', command: login }
+];
 
-    console.log('Attempting login...')
-    const authentication = await attemptLogin(config);
+const main = async () => {    
+    const options = commandLineArgs(optionDefinitions)
+    
+    const verbose = options.verbose || true;
+    const command = options.command || '';
+    
+    const config = getConfiguration(options);
 
-    if (authentication.ChallengeName === 'NEW_PASSWORD_REQUIRED') {
-        const session = authentication.Session;
-        
-        console.log('Resetting password...')
-        const response = await resetPasswordToNew(config, session);
+    setVerboseLevel(false);
 
-        console.log(response);
-    }
+    const cmd = commandMap.filter(c => c.key === command);
+    
+    return cmd[0].command.call(null, config);
+
+
+    
 };
 
 main();
