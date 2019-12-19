@@ -11,14 +11,14 @@ const getConfiguration = (overrides) => {
     const userPoolId = hasOverride(overrides, "userPoolId", settings.userPoolId);
     const clientId = hasOverride(overrides, "clientId", settings.clientId);
     const tempPwd = hasOverride(overrides, "tempPwd", settings.tempPwd);
-    const newPwd = hasOverride(overrides, "newPwd", settings.newPwd);
+    const password = hasOverride(overrides, "password", settings.password);
     const user = hasOverride(overrides, "user", settings.user);
 
     return {
         userPoolId: userPoolId,
         clientId: clientId,
         tempPwd: tempPwd,
-        newPwd: newPwd,
+        password: password,
         user: user,
         region: settings.region
     };

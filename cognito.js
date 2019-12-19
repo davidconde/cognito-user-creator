@@ -21,6 +21,7 @@ const createUser = async (config) => {
 }
 
 const attemptLogin = async (config) => {
+
     const params = {
         AuthFlow: 'USER_PASSWORD_AUTH',
         ClientId: config.clientId,
@@ -41,7 +42,7 @@ const resetPasswordToNew = async (config, session) => {
         UserPoolId: config.userPoolId, 
         ChallengeName: 'NEW_PASSWORD_REQUIRED',
         ChallengeResponses: {
-            "NEW_PASSWORD": config.newPwd,
+            "NEW_PASSWORD": config.password,
             "USERNAME": config.user
         },
         Session: session
